@@ -1,0 +1,43 @@
+<section class="bg-main-light p-4 m-2 rounded-md">
+    <div class="flex justify-between">
+        <h1 class="text-2xl font-bold">Shop Cart</h1>
+        @if(numberOfCartItem()){
+            <button (click)="clearCart()" class="border border-red-500 rounded-md text-red-500 p-2 hover:text-white hover:bg-red-500 transition-all duration-150">Delete Cart</button>
+        }
+        
+    </div>
+    
+    <p class="text-main my-4">{{cartItem().totalCartPrice | currency : 'EGP'}}</p>
+
+    @for(item of cartItem().products; track item.product.id){
+        
+        <div class="flex border-b-2 my-4">
+            <div class="w-2/12">
+                <img class="w-full min-w-6" [src]="item.product.imageCover" [alt]="item.product.title">
+            </div>
+            
+            <div class="w-10/12 flex items-center justify-between px-4">
+                <div>
+                    <h2>{{item.product.title}}</h2>
+                    <p class="text-main">{{item.price | currency : "EGP"}}</p>
+                    <span class="text-red-500 cursor-pointer" (click)="deleteItem(item.product.id)"><i class="fa-solid fa-trash"></i></span>
+                </div>
+                
+                <div class="flex gap-4 items-center">
+                    <span (click)="updateItemQuantity(item.product.id, item.count + 1)" class="cursor-pointer"><i class="fa-solid fa-circle-plus fa-2xl"></i></span> 
+                    <p>{{item.count}}</p>
+                    <span (click)="updateItemQuantity(item.product.id, item.count - 1)" class="cursor-pointer"><i class="fa-solid fa-circle-minus fa-2xl"></i></span>
+                </div>
+            </div>
+            
+        </div> 
+    }
+    @empty {
+        <p>The Cart is empty</p>
+    }
+
+    @if(numberOfCartItem()){
+        <button [routerLink]="['/orders', cartItem()._id]" class="btn-main mt-4 ms-auto block">Orders</button>
+    }
+    
+</section>

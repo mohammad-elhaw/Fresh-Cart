@@ -1,0 +1,111 @@
+<section class="bg-main-light p-4 m-2 rounded-md w-3/4 mx-auto">
+    <h1 class="text-main text-2xl">Reset Password</h1>
+    
+    @if(step == 1) {
+        <form [formGroup]="verifyEmail" (ngSubmit)="submitVerifyEmail()">
+            <div class="py-4">
+                <label for="email" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Verify Email</label>
+                <input formControlName="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                @if(verifyEmail.get("email")?.errors && (verifyEmail.get("email")?.touched || verifyEmail.get("email")?.dirty)){
+                    <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                        @if(verifyEmail.get("email")?.getError("required")){
+                            <p>Email is required</p>
+                        }
+                        @else if(verifyEmail.get("email")?.getError("pattern")){
+                            <p>Email is Invalid</p>
+                        }
+                    </div>
+                }
+            </div>
+            
+            <button [disabled]="isLoading" type="submit" class="btn-main">
+                Verify Email
+                @if(isLoading){
+                    <i class="fas fa-spin fa-spinner"></i>
+                }
+            </button>
+
+            @if(errorMsg){
+                <p class="bg-red-200 rounded-md p-3 m-3">{{errorMsg}}</p>
+            }
+            @if(successMsg){
+                <p class="bg-green-200 rounded-md p-3 m-3">{{successMsg}}</p>
+                <p class="you will navigate to verify code page in 5 second"></p>
+            }
+        </form>
+    }
+    @else if(step == 2){
+        <form [formGroup]="verifyCode" (ngSubmit)="submitVerifyCode()">
+            <div class="py-4">
+                <label for="verifyCode" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Verify Code</label>
+                <input formControlName="resetCode" type="text" id="VerifyCode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                @if(verifyCode.get("resetCode")?.errors && (verifyCode.get("resetCode")?.touched || verifyCode.get("resetCode")?.dirty)){
+                    <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                        @if(verifyCode.get("resetCode")?.getError("required")){
+                            <p>reset code is required</p>
+                        }
+                        @else if(verifyCode.get("resetCode")?.getError("pattern")){
+                            <p>reset code is invalid</p>
+                        }
+                    </div>
+                }
+            </div>
+            
+            <button [disabled]="isLoading" type="submit" class="btn-main">
+                Verify Code
+                @if(isLoading){
+                    <i class="fas fa-spin fa-spinner"></i>
+                }
+            </button>
+
+            @if(errorMsg){
+                <p class="bg-red-200 rounded-md p-3 m-3">{{errorMsg}}</p>
+            }
+            @if(successMsg){
+                <p class="bg-green-200 rounded-md p-3 m-3">{{successMsg}}</p>
+                <p class="you will navigate to verify code page in 5 second"></p>
+            }
+        </form>
+    }
+    @else{
+        <form [formGroup]="resetPassword" (ngSubmit)="submitResetPassword()">
+            <div class="py-4">
+                <div class="mb-5">
+                    <label for="email" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <input readonly formControlName="email" type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+                
+                <div>
+                    <label for="resetPassword" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+                    <input formControlName="newPassword" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    @if(resetPassword.get("newPassword")?.errors && (resetPassword.get("newPassword")?.touched || resetPassword.get("newPassword")?.dirty)){
+                        <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                            @if(resetPassword.get("newPassword")?.getError("required")){
+                                <p>Reset Password is required</p>
+                            }
+                            @else if(resetPassword.get("newPassword")?.getError("pattern")){
+                                <p>Reset Password is invalid</p>
+                            }
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+
+            <button [disabled]="isLoading" type="submit" class="btn-main">
+                Reset Password
+                @if(isLoading){
+                    <i class="fas fa-spin fa-spinner"></i>
+                }
+            </button>
+            @if(errorMsg){
+                <p class="bg-red-200 rounded-md p-3 m-3">{{errorMsg}}</p>
+            }
+            @if(successMsg){
+                <p class="bg-green-200 rounded-md p-3 m-3">{{successMsg}}</p>
+                <p class="you will navigate to verify code page in 5 second"></p>
+            }
+        </form>
+    }
+
+</section>

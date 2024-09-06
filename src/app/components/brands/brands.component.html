@@ -1,0 +1,14 @@
+<section>
+    <h1 class="text-main text-2xl font-bold py-4">All Brands</h1>
+
+    <div class="grid gap-4 grid-cols-1 md:grid-cols-4 my-4">
+
+        @for (brand of brandsList(); track brand._id) {
+            <div class="border-2 hover:shadow-[1px_1px_10px_#4fa74f] transition-all duration-300">
+                <img [src]="brand.image" [alt]="brand.name">
+                <p class="p-6 text-center">{{brand.name}}</p>
+            </div>
+        }
+        
+    </div>
+</section>

@@ -1,0 +1,23 @@
+<section class="bg-main-light p-4 m-2 rounded-md w-3/4 mx-auto">
+    <h1 class="text-2xl font-bold">Shipping Address</h1>
+
+    <form [formGroup]="orders" (ngSubmit)="submitOrder()">
+        <div class="my-2">
+            <label for="details" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Details</label>
+            <textarea formControlName="details" id="details" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+        </div>
+
+        <div class="my-2">
+            <label for="phone" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">phone</label>
+            <input formControlName="phone" id="phone" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+        </div>
+
+        <div class="my-2">
+            <label for="city" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">city</label>
+            <input formControlName="city" id="city" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+        </div>
+
+        <button class="btn-main" type="submit">Check out</button>
+        
+    </form>
+</section>

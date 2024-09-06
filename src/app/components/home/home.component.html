@@ -1,0 +1,76 @@
+<!-- main slider -->
+<section>
+    <div class="grid grid-cols-12">
+        <div class="col-span-12 md:col-span-10">
+            <owl-carousel-o [options]="customOptionsMain">
+                <ng-template carouselSlide>
+                    <img src="./assets/images/slider-image-3.jpeg" class="w-full h-[300px]" alt="slider-img 3">
+                </ng-template>
+                <ng-template carouselSlide>
+                    <img src="./assets/images/slider-image-1.jpeg" class="w-full h-[300px]" alt="slider-img 1">
+                </ng-template>
+                <ng-template carouselSlide>
+                    <img src="./assets/images/slider-image-2.jpeg" class="w-full h-[300px]" alt="slider-img 2">
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+        
+        <div class="max-md:hidden col-span-12 md:col-span-2">
+            <img src="./assets/images/slider-image-1.jpeg" class="w-full h-[150px]" alt="slider-image 1">
+            <img src="./assets/images/slider-image-2.jpeg" class="w-full h-[150px]" alt="slider-image 2">
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="my-4">
+    <h2 class="text-main text-2xl font-bold py-4">Popular Categories</h2>
+    <owl-carousel-o [options]="customOptionsCat">
+
+        @for (category of categoryList(); track category._id) {
+            <ng-template carouselSlide>
+                <div class="text-center">
+                    <img class="w-full h-[250px]" [src]="category.image" [alt]="category.name">
+                    <h3 class="text-main">{{category.name}}</h3>
+                </div>
+                
+            </ng-template>
+        }
+
+      </owl-carousel-o>
+</section>
+
+
+<!-- Products -->
+<section>
+    <h2 class="text-main text-2xl font-bold py-4">Popular Products</h2>
+    <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-6 my-4">
+        
+        @for (product of productList(); track product.id) {
+            <div class="product overflow-hidden bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            
+                <div class="cursor-pointer" [routerLink]="['/details', product.id]">
+                    <img class="rounded-t-lg" [src]="product.imageCover" [alt]="product.title" />
+                    <div class="p-2">
+                        <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{product.category.name}}</h3>
+                        <h4 class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{product.title.split(" ", 2).join(" ")}}</h4>
+                        
+                        <div>
+                            <app-star-rating [rating]="product.ratingsAverage"></app-star-rating>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2 flex justify-between items-center">
+                    <span>{{product.price}}EGP</span>
+                    <span class="cursor-pointer" (click)="toggleWishList(product)" >
+                        <i [ngClass]="product.isInWishList ? 'fa-solid fa-heart text-red-500': 'fa-solid fa-heart text-gray-500'"></i>
+                    </span>
+                </div>
+                <button class="btn-main w-full" (click)="addToCart(product.id)">Add To Cart</button>
+            </div>
+    
+        }
+        
+        
+    </div>
+</section>

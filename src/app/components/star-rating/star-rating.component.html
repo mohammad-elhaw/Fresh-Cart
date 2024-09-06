@@ -1,0 +1,20 @@
+<div class="flex items-center">
+    <!-- full Stars -->
+    @for(star of fullStars; track $index) {
+        <i class="fas fa-star rating-color"></i>
+    }
+
+    <!-- half Stars -->
+    @if(halfStar){
+        <i class="fas fa-star" [ngStyle]="{
+            'background': halfStarGradient,
+            '-webkit-background-clip': 'text',
+            '-webkit-text-fill-color': 'transparent'
+        }"></i>
+    }
+
+    <!-- Empty Stars -->
+     @for (star of emptyStars; track $index) {
+        <i class="fas fa-star text-gray-300"></i>
+     }
+</div>

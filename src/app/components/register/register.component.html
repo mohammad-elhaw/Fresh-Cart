@@ -1,0 +1,93 @@
+<section class="bg-main-light p-4 my-2 rounded-md w-3/4 mx-auto">
+    <h1 class="text-main text-2xl">Register Now: </h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+        <div class="mb-5">
+            <label for="name" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
+            <input formControlName="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe"/>
+            @if(registerForm.get("name")?.errors && (registerForm.get("name")?.touched || registerForm.get("name")?.dirty)) {
+                <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                    @if(registerForm.get("name")?.getError("required")){ 
+                        <p>Name is required.</p>
+                    }
+                    @else if(registerForm.get("name")?.getError("minlength")){
+                        <p>Name should be more than or equal to 3 chars.</p>
+                    }
+                    @else if(registerForm.get("name")?.getError("maxlength")){
+                        <p>Name should be less than or equal to 20 chars.</p>
+                    }
+                </div>
+            }
+            
+        
+        </div>
+
+        <div class="mb-5">
+            <label for="email" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+            <input formControlName="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com"/>
+            @if(registerForm.get("email")?.errors && (registerForm.get("email")?.touched || registerForm.get("email")?.dirty)){
+                <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                    @if(registerForm.get("email")?.getError("required")){
+                        <p>Email is required</p>
+                    }
+                    @else if(registerForm.get("email")?.getError("pattern")){
+                        <p>Email Should be valid</p>
+                    }
+                
+                </div>
+            }
+        
+        </div>
+        
+        <div class="mb-5">
+            <label for="password" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+            <input formControlName="password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••"/>
+            @if(registerForm.get("password")?.errors && (registerForm.get("password")?.touched || registerForm.get("password")?.dirty)){
+                <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                    @if(registerForm.get("password")?.getError("required")){
+                        <p>Password is required</p>
+                    }
+                    @else if(registerForm.get("password")?.getError("pattern")){
+                        <p>Password Should be valid</p>
+                    }
+                
+                </div>
+            }
+        </div>
+        
+        <div class="mb-5">
+            <label for="rePassword" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Your rePassword</label>
+            <input formControlName="rePassword" type="Password" id="rePassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••"/>
+            @if(registerForm.getError("mismatch") && (registerForm.get("rePassword")?.touched || registerForm.get("rePassword")?.dirty)){
+                <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                    <p>Confirm Password is invalid</p >
+                </div>
+            }
+        </div>
+        
+        <div class="mb-5">
+            <label for="phone" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Your phone</label>
+            <input formControlName="phone" type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="01099999999"/>
+            @if(registerForm.get("phone")?.errors && (registerForm.get("phone")?.touched || registerForm.get("phone")?.dirty)){
+                <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                    @if(registerForm.get("phone")?.getError("required")){
+                        <p>phone is required</p>
+                    }
+                    @else if(registerForm.get("phone")?.getError("pattern")){
+                        <p>phone Should be valid</p>
+                    }
+                </div>
+            }
+        </div>
+
+        <button [disabled]="isLoading" type="submit" class="btn-main block ms-auto">
+            Register
+            @if(isLoading){
+                <i class="fas fa-spin fa-spinner"></i>
+            }
+        </button>
+
+    </form>
+      
+  
+</section>

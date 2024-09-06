@@ -1,0 +1,49 @@
+<section class="bg-main-light p-4 m-2 rounded-md w-3/4 mx-auto">
+    <h1 class="text-main text-2xl">Login Now:</h1>
+
+    
+    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+        
+        <div class="mb-5">
+            <label for="email" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+            <input formControlName="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com"/>
+            @if(loginForm.get("email")?.errors && (loginForm.get("email")?.touched || loginForm.get("email")?.dirty)){
+                <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                    @if(loginForm.get("email")?.getError("required")){
+                        <p>Email is required</p>
+                    }
+                    @else if(loginForm.get("email")?.getError("pattern")){
+                        <p>Email is invalid</p>
+                    }
+                </div>
+            }
+        </div> 
+        <div class="mb-5">
+            <label for="password" class="block m-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <input formControlName="password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••"/>
+            @if(loginForm.get("password")?.errors && (loginForm.get("password")?.touched || loginForm.get("password")?.dirty)){
+                <div class="w-1/2 bg-red-200 rounded-md p-3 m-3">
+                    @if(loginForm.get("password")?.getError("required")){
+                        <p>Password is required</p>
+                    }
+                    @else if(loginForm.get("password")?.getError("pattern")){
+                        <p>Password is invalid</p>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="flex justify-end items-center gap-3">
+            <a routerLink="/forgetPassword" class="text-main">Forget Password</a>
+            <button [disabled]="isLoading" type="submit" class="btn-main">
+                Submit
+                @if(isLoading){
+                    <i class="fas fa-spin fa-spinner"></i>
+                }
+                
+            </button>
+        </div>
+        
+    </form>
+
+</section>
