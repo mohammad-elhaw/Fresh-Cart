@@ -1,1 +1,48 @@
-<p>all-orders works!</p>
+
+@for (item of dropDownItems(); track item.id; let i = $index) {
+  <div class="relative py-2 flex justify-center flex-wrap">
+    <!-- Dropdown button -->
+    <button (click)="toggleDropDown(item.id)" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+      Order Number {{i + 1}}
+      <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l4 4 4-4"/>
+      </svg>
+    </button>
+  
+    <!-- Dropdown content -->
+     @if (isOpen(item.id)) {
+      <div class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md w-auto dark:bg-gray-700">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">Product image</th>
+                <th scope="col" class="px-6 py-3">Product name</th>
+                <th scope="col" class="px-6 py-3">Count</th>
+                <th scope="col" class="px-6 py-3">Category</th>
+                <th scope="col" class="px-6 py-3">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (cartItem of item.cartItems; track cartItem._id) {
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <td class="px-6 py-4"><img class="w-1/2" [src]="cartItem.product.imageCover" [alt]="cartItem.product.title"></td>
+                  <td class="px-6 py-4">{{cartItem.product.title}}</td>
+                  <td class="px-6 py-4">{{cartItem.count}}</td>
+                  <td class="px-6 py-4">{{cartItem.product.category.name}}</td>
+                  <td class="px-6 py-4">{{cartItem.price | currency:"EGP"}}</td>
+                  
+                </tr>
+              }
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+     }
+    
+  </div>
+}
+
+
+

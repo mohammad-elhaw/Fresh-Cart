@@ -35,12 +35,8 @@
 
         <div class="flex justify-end items-center gap-3">
             <a routerLink="/forgetPassword" class="text-main">Forget Password</a>
-            <button [disabled]="isLoading" type="submit" class="btn-main">
+            <button type="submit" class="btn-main">
                 Submit
-                @if(isLoading){
-                    <i class="fas fa-spin fa-spinner"></i>
-                }
-                
             </button>
         </div>
         

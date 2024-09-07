@@ -1,10 +1,9 @@
 import { Component, inject, OnDestroy } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../core/services/auth.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +19,6 @@ export class RegisterComponent implements OnDestroy{
   private readonly _Router = inject(Router);
   private readonly _ToastrService = inject(ToastrService);
 
-  isLoading:boolean = false;
   registerSubscription!:Subscription;
 
   ngOnDestroy(): void {
@@ -45,20 +43,15 @@ export class RegisterComponent implements OnDestroy{
 
 
   registerSubmit():void{
-    if(this.registerForm.valid && !this.isLoading){
-      this.isLoading= true;
+    if(this.registerForm.valid ){
 
       this.registerSubscription = this._AuthService.sendRegistrationForm(this.registerForm.value).subscribe({
         next:(res)=>{
-          this.isLoading= false;
           console.log(res);
           if(res.message == "success"){
             this._ToastrService.success("You register successfully.");
             this._Router.navigate(["/login"]);
           }
-        },
-        error:(err:HttpErrorResponse)=>{
-          this.isLoading= false;
         }
       });
     }

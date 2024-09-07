@@ -1,9 +1,8 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../core/services/auth.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +17,6 @@ export class LoginComponent implements OnDestroy{
   private readonly _AuthService = inject(AuthService);
   private readonly _Router = inject(Router);
 
-  isLoading:boolean = false;
   loginSubscription!:Subscription;
 
   loginForm:FormGroup = this._FormBuilder.group({
@@ -32,19 +30,14 @@ export class LoginComponent implements OnDestroy{
 
   loginSubmit():void{
     if(this.loginForm.valid){
-      this.isLoading = true;
       this.loginSubscription = this._AuthService.sendLoginFrom(this.loginForm.value).subscribe({
         next:(res)=>{
-          this.isLoading = false;
           if(res.message == "success"){
 
             localStorage.setItem("userToken", res.token);
             this._Router.navigate(["/home"]);
             
           }
-        },
-        error:(err:HttpErrorResponse)=>{
-          this.isLoading = false;
         }
       });
     }
